@@ -25,4 +25,22 @@ func main() {
 
 	// Close channel after main function has been executed
 	defer channel.Close()
+
+	queue, err := channel.QueueDeclare("testQueue", true, false, false, false, nil )
+	FailOnError(err, "Failed to declare queue")
+
+	messageContents := "Hello World"
+
+	err = channel.Publish(
+		"", // Default exchange name
+		queue.Name, // Name used as routing key to pass message to corresponding queue
+		false, // Mandatory parameter meaning that message must be delivered ... can run into error if queue doesn't exist
+		false, // Immediate parameter meaning that message needs to be delivered immediately can fail if corresponding queue cant hold any more messages in queue
+		amqp.Publishing{
+			ContentType: "text/plain",
+			Body: []byte(messageContents), // Convert body to be byte slice to send through=
+		})
+	
+	FailOnError(err, "Failed to publish a message")
+	
 }
