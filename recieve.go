@@ -42,5 +42,5 @@ func main() {
 	}()
 
 	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
-	<-forever // Keeps the main function running up until what conditions
+	<-forever // Keeps the main function running up until explicit leave with CTRL C receiver blocks until there is a sender
 }

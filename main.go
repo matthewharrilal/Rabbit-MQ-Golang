@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 
@@ -12,6 +13,12 @@ func FailOnError(err error, msg string) {
 	if err != nil {
 		log.Fatalf("%v:  %v", msg, err)
 	}
+}
+
+type Example struct {
+	name string
+
+	age int
 }
 
 func main() {
@@ -30,7 +37,8 @@ func main() {
 	queue, err := channel.QueueDeclare("testQueue", true, false, false, false, nil)
 	FailOnError(err, "Failed to declare queue")
 
-	messageContents := "Hello World"
+	example := Example{"matthew", 12}
+	messageContents, err := json.Marshal(&example)
 
 	err = channel.Publish(
 		"",         // Default exchange name
