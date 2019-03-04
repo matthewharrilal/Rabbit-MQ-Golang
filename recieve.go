@@ -26,7 +26,7 @@ func main() {
 	msgs, err := ch.Consume(
 		"testQueue", // queue
 		"",          // consumer
-		true,        // auto-ack
+		false,       // auto-ack
 		false,       // exclusive
 		false,       // no-local
 		false,       // no-wait
