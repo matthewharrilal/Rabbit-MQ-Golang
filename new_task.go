@@ -35,6 +35,7 @@ func main() {
 	defer connection.Close()
 
 	channel, err := connection.Channel()
+	// channel.Qos Configuration settings on the channel itself
 	FailOnError(err, "Failed to create channel")
 
 	// Close channel after main function has been executed

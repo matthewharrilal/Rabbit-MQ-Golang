@@ -35,6 +35,9 @@ func main() {
 	defer channel.Close()
 
 	queue, err := channel.QueueDeclare("testQueue", true, false, false, false, nil)
+
+	// channel.ExchangeDeclare() If you want to declare an exchange that abstracts logic from client
+
 	FailOnError(err, "Failed to declare queue")
 
 	example := Example{"matthew", 12}
